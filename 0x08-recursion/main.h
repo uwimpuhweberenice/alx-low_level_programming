@@ -9,9 +9,9 @@ void _print_rev_recursion(char *s);
 int _strlen_recursion(char *s);
 int factorial(int n);
 int _pow_recursion(int x, int y);
-int otherr_sqrt(int a, int b)
+int otherr_sqrt(int a, int b);
 int _sqrt_recursion(int n);
-int other_prime(int a, int b)
+int other_prime(int a, int b);
 int is_prime_number(int n);
 int palindrome1(char *a, int l);
 int palindrome2(char *a, int l);
