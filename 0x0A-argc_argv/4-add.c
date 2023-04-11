@@ -35,7 +35,7 @@ int is_number(char *s)
  */
 int main(int argc, char **argv)
 {
-	int i, n ,ar;
+	int i, n, ar;
 
 	ar = 0, n = 0;
 	if (argc > 1)
