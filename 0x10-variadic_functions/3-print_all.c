@@ -1,84 +1,51 @@
 #include "variadic_functions.h"
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
- * print_int - prints an integer
- * @ap: arguments
- * Return: nothing
- */
-void print_int(va_list ap)
-{
-	printf("%d", va_arg(ap, int));
-}
-/**
- * print_float - prints a float
- * @ap: arguments
- * Return: nothing
- */
-void print_float(va_list ap)
-{
-	printf("%f", va_arg(ap, double));
-}
-/**
- * print_char - prints a character
- * @ap: arguments
- * Return: nothing
- */
-void print_char(va_list ap)
-{
-	printf("%c", va_arg(ap, int));
-}
-/**
- * print_string - prints a string
- * @ap: arguments
- * Return: nothing
- */
-void print_string(va_list ap)
-{
-	char *c = va_arg(ap, char *);
-
-	if (c == NULL)
-		printf("(nil)");
-	printf("%s", c);
-}
-/**
- * print_all - prints anything
- * @format: list of types of arguments passed to the function
+ * print_all - Prints all of the arguments when specified
+ * @format: specifies the necessary operations
  * Return: nothing
  */
 
 void print_all(const char * const format, ...)
 {
-	va_list ap;
-	int i = 0, j;
-	char *separator = "";
+	int i;
+	int flag;
+	char *str;
+	va_list a_list;
 
-	printingStruct printing[] = {
-		{ "i", print_int },
-		{ "f", print_float },
-		{ "c", print_char },
-		{ "s", print_string },
-		{NULL, NULL}
-	};
-	va_start(ap, format);
-	while (format && format[i])
+	va_start(a_list, format);
+	i = 0;
+	while (format != NULL && format[i] != '\0')
 	{
-		j = 0;
-		while (j < 4)
+		switch (format[i])
 		{
-			if (*printing[j].type == format[i])
-			{
-				printf("%s", separator);
-				printing[j].toprint(ap);
-				separator = ", ";
+			case 'c':
+				printf("%c", va_arg(a_list, int));
+				flag = 0;
 				break;
-			}
-			j++;
+			case 'i':
+				printf("%i", va_arg(a_list, int));
+				flag = 0;
+				break;
+			case 'f':
+				printf("%f", va_arg(a_list, double));
+				flag = 0;
+				break;
+			case 's':
+				str = va_arg(a_list, char*);
+				if (str == NULL)
+					str = "(nil)";
+				printf("%s", str);
+				flag = 0;
+				break;
+			default:
+				flag = 1;
+				break;
 		}
+		if (format[i + 1] != '\0' && flag == 0)
+			printf(", ");
 		i++;
 	}
-	putchar('\n');
-	va_end(ap);
+	printf("\n");
+	va_end(a_list);
 }
